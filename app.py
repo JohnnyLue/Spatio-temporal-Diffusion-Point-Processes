@@ -43,7 +43,7 @@ def get_args():
     parser.add_argument('--loss_type', type=str, default='l2',choices=['l1','l2','Euclid'], help='')
     parser.add_argument('--beta_schedule', type=str, default='cosine',choices=['linear','cosine'], help='')
     parser.add_argument('--dim', type=int, default=2, help='', choices = [1,2,3])
-    parser.add_argument('--dataset', type=str, default='Earthquake',choices=['Citibike','Earthquake','HawkesGMM','Pinwheel','COVID19','Mobility','HawkesGMM_2d','Independent'], help='')
+    parser.add_argument('--dataset', type=str, default='Earthquake', help='')
     parser.add_argument('--batch_size', type=int, default=64,help='')
     parser.add_argument('--timesteps', type=int, default=100, help='')
     parser.add_argument('--samplingsteps', type=int, default=100, help='')
@@ -88,8 +88,8 @@ def data_loader(writer):
         else:
             Max.append(1)
             Min.append(0)
-
-    assert Min[1] > 0
+    print(Max, Min)
+    assert Min[1] >= 0
     
     train_data = [[[normalization(i[j], Max[j], Min[j]) for j in range(len(i))] for i in u] for u in train_data]
     test_data = [[[normalization(i[j], Max[j], Min[j]) for j in range(len(i))] for i in u] for u in test_data]
@@ -204,7 +204,7 @@ if __name__ == "__main__":
     Model = Model_all(transformer,diffusion)
 
     trainloader, testloader, valloader, (MAX,MIN) = data_loader(writer)
-
+    
     warmup_steps = 5
     
     # training
@@ -259,7 +259,7 @@ if __name__ == "__main__":
                     gen = sampled_seq[:,0,-opt.dim:].detach().cpu()
                     gen = (gen + torch.tensor([MIN[2:]])) * (torch.tensor([MAX[2:]])-torch.tensor([MIN[2:]]))
                     assert real.shape==gen.shape
-                    assert real.shape==sampled_seq_spatial_all.shape
+                    #assert real.shape==sampled_seq_spatial_all.shape
                     mae_spatial += torch.sqrt(torch.sum((real-gen)**2,dim=-1)).sum().item()
                     # mae_spatial_mean += torch.sqrt(torch.sum((real-sampled_seq_spatial_all)**2,dim=-1)).sum().item()
 

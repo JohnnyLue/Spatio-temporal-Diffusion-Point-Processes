@@ -2,9 +2,6 @@
 *__pycache__/
 *.ipynb_checkpoints/
 
-# dataset
-dataset/
-
 # Other files and folders
 .vscode/
 *logs/
