@@ -15,35 +15,36 @@ The code is tested under a Linux desktop with torch 1.7 and Python 3.7.10.
 - Tensorboard
 
 ### Dependencies
-1. Install PyTorch 1.7.1 with the correct CUDA version.
+1. Install PyTorch 1.7.1 with the correct CUDA version. Recommend CUDA 11.7.
 2. Use the ``pip install -r requirements. txt`` command to install all of the Python modules and packages used in this project.
 
 ## Model Training
 
-Use the following command to train DSTPP on `Earthquake` dataset: 
+Use the following command to train DSTPP on `AnimalTracking` dataset: 
 
 ``
-python app.py --dataset Earthquake --mode train --timesteps 500 --samplingsteps 500 --batch_size 64 --total_epochs 2000
+python app.py --dataset AnimalTracking --mode train --timesteps 200 --samplingsteps 200 --batch_size 64 --total_epochs 200
 ``
 
 To train DSTPP on other datasets:
 
 ``
-python app.py --dataset COVID19 --mode train --timesteps 500 --samplingsteps 500 --batch_size 64 --total_epochs 2000
+python app.py --dataset Storms --mode train --timesteps 200 --samplingsteps 200 --batch_size 64 --total_epochs 200
 ``
 
 ``
-python app.py --dataset Citibike --mode train --timesteps 500 --samplingsteps 500 --batch_size 128 --total_epochs 2000 
-``
-
-``
-python app.py --dataset Independent --mode train --timesteps 500 --samplingsteps 500 --batch_size 128 --total_epochs 2000 
+python app.py --dataset Atlantic --mode train --timesteps 200 --samplingsteps 200 --batch_size 64 --total_epochs 200
 ``
 
 The trained models are saved in ``ModelSave/``.
 
 The logs are saved in ``logs/``.
 
+Use tensorboard to view visualized result.
+
+``
+tensorboard --logdir=logs
+``
 
 ## Note
 
