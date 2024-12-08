@@ -66,9 +66,7 @@ def group_by_7days(df: pd.DataFrame):
         sequence_data = convert_to_list(sequence_data)
 
         if sequence_data:
-            if len(sequence_data)>300:
-                all_sequences.append(sequence_data[:300])
-            else:
+            if len(sequence_data)<300:
                 all_sequences.append(sequence_data)
 
         current_start = current_end
